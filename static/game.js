@@ -2,6 +2,21 @@
 
 var React = require('react');
 
+var Status = React.createClass({
+    render() {
+        return <div>
+            <div id="score">
+                <span className="title">{this.props.title}</span>
+                <span className="score">{this.props.score}</span>
+            </div>
+            <div id="timer">
+                <div id="clock"><span id="time">{this.props.time}</span></div>
+                <progress value={this.props.time} max={this.props.maxTime} />
+            </div>
+        </div>;
+    }
+});
+
 var Tiles = React.createClass({
     render() {
         var tiles = [];
@@ -86,13 +101,12 @@ function get_title(score) {
 }
 
 function update_status() {
-    $('.score').text(conf.score);
-    $('#time').text(conf.time.current);
-    $('#timer').find('progress').attr({
-        value: conf.time.current,
-        max: conf.time.max
-    });
-    $('.title').text(get_title(conf.score));
+    React.renderComponent(<Status
+        score={conf.score}
+        time={conf.time.current}
+        maxTime={conf.time.max}
+        title={get_title(conf.score)} />,
+        $('header')[0]);
 }
 
 // global functions
