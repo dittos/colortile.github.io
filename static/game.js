@@ -1,3 +1,26 @@
+/** @jsx React.DOM */
+
+var React = require('react');
+
+var Tiles = React.createClass({
+    render() {
+        var tiles = [];
+        for (var i = 0; i < this.props.count; i++) {
+            var isAnswer = i == this.props.answerIndex;
+            var color = isAnswer ? this.props.answerColor : this.props.tileColor;
+            tiles.push(<div
+                className={'tile id_' + i + (isAnswer ? ' answer' : '')}
+                style={{
+                    'width': this.props.tileSize,
+                    'height': this.props.tileSize,
+                    'backgroundColor': color
+                }} />
+            );
+        }
+        return <div>{tiles}</div>;
+    }
+});
+
 $('body, body *').attr('unselectable', 'on')
     .css({'-moz-user-select': '-moz-none',
         '-moz-user-select': 'none',
@@ -105,19 +128,13 @@ function render(level, size) {
     var anwser_index = Math.floor(Math.random() * tile_count);
 
     // draw
-    conf.tiles.content.find('.answer').removeClass('answer');
-    var current_tile = conf.tiles.content.find('.tile').size();
-    for (var i = current_tile; i < tile_count; i++) {
-        conf.tiles.content.append('<div class="tile id_' + i + '"/>');
-    }
-    $('.tile').css({
-        width: tile_width + 'px',
-        height: tile_width + 'px',
-        backgroundColor: parse_color(base_color)
-    });
-    $('.tile').eq(anwser_index)
-        .css("background-color", parse_color(anwser_color))
-        .addClass('answer');
+    React.renderComponent(<Tiles
+        tileSize={tile_width}
+        count={tile_count}
+        tileColor={parse_color(base_color)}
+        answerColor={parse_color(anwser_color)}
+        answerIndex={anwser_index} />,
+        conf.tiles.content[0]);
 }
 
 
