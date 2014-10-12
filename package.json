@@ -1,0 +1,24 @@
+{
+  "name": "colortile",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dittos/colortile.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dittos/colortile.github.io/issues"
+  },
+  "homepage": "https://github.com/dittos/colortile.github.io",
+  "devDependencies": {
+    "webpack": "^1.4.5",
+    "webpack-dev-server": "^1.6.5"
+  },
+  "dependencies": {
+    "css-loader": "^0.9.0",
+    "jsx-loader": "^0.11.2",
+    "less": "^1.7.5",
+    "less-loader": "^0.7.7",
+    "react": "^0.11.2",
+    "style-loader": "^0.8.1"
+  }
+}
